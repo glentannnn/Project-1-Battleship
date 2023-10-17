@@ -58,14 +58,14 @@ h5 {
   flex-wrap: wrap;
 }
 #playerBoard {
-  width: 220px;
-  height: 220px;
+  width: 200px;
+  height: 200px;
   background-color: bisque;
 }
 
 #computerBoard {
-  width: 220px;
-  height: 220px;
+  width: 200px;
+  height: 200px;
   background-color: aquamarine;
 }
 
@@ -74,7 +74,7 @@ h5 {
   height: 20px;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 /*
 .grid-container {
@@ -109,35 +109,50 @@ h5 {
 }
 
 #carrier {
-  width: 110px;
-  height: 22px; /* this part can use JS, so we can relate it to the width value that we defined globally */
   background-color: #b36f2b;
+}
+
+.carrier-preview {
+  width: 100px;
+  height: 20px; /* this part can use JS, so we can relate it to the width value that we defined globally */
   justify-content: center;
   align-items: center;
 }
 
 #battleship {
-  width: 88px;
-  height: 22px;
   background-color: #5b8a3f;
 }
 
+.battleship-preview {
+  width: 80px;
+  height: 20px;
+}
+
 #cruiser {
-  width: 66px;
-  height: 22px;
   background-color: #325685;
 }
 
+.cruiser-preview {
+  width: 60px;
+  height: 20px;
+}
+
 #submarine {
-  width: 66px;
-  height: 22px;
   background-color: #d1d143;
 }
 
+.submarine-preview {
+  width: 60px;
+  height: 20px;
+}
+
 #destroyer {
-  width: 44px;
-  height: 22px;
   background-color: #99518f;
+}
+
+.destroyer-preview {
+  width: 40px;
+  height: 20px;
 }
 
 footer {
