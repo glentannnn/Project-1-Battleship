@@ -37,9 +37,6 @@ function flipPieces() {
   });
 }
 
-// function to check validity
-function checkPlacement() {}
-
 // 6. create classes to assist with step 5. Put the name and the length as parameters to use in step 5.
 class shipCategory {
   constructor(name, length) {
@@ -100,6 +97,7 @@ function allocateShipPieces(ship, validityFunction) {
   // 7. Use the forEach method to add ID of the ship's name into the HTML. The CSS styling for the ID should also be created to cater to this.
   shipsArr.forEach((smth) => {
     smth.setAttribute("id", ship.name);
+    smth.classList.add("taken");
   });
 }
 
