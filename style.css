@@ -108,7 +108,7 @@ h5 {
   margin-top: 30px;
 }
 
-#carrier {
+.carrier {
   background-color: #b36f2b;
 }
 
@@ -119,7 +119,7 @@ h5 {
   align-items: center;
 }
 
-#battleship {
+.battleship {
   background-color: #5b8a3f;
 }
 
@@ -128,7 +128,7 @@ h5 {
   height: 20px;
 }
 
-#cruiser {
+.cruiser {
   background-color: #325685;
 }
 
@@ -137,7 +137,7 @@ h5 {
   height: 20px;
 }
 
-#submarine {
+.submarine {
   background-color: #d1d143;
 }
 
@@ -146,7 +146,7 @@ h5 {
   height: 20px;
 }
 
-#destroyer {
+.destroyer {
   background-color: #99518f;
 }
 

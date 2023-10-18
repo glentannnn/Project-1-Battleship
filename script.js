@@ -4,7 +4,7 @@ const width = 10; // 2. we put this here so we can change this number whenever w
 function createMiniBlocksPlayer() {
   for (let i = 0; i < width * width; i++) {
     const miniBlock = document.createElement("div");
-    miniBlock.id = i;
+    miniBlock.id = "p" + i;
     miniBlock.classList.add("mini-block");
     document.querySelector("#playerBoard").append(miniBlock);
   }
@@ -14,7 +14,7 @@ createMiniBlocksPlayer();
 function createMiniBlocksComputer() {
   for (let i = 0; i < width * width; i++) {
     const miniBlock = document.createElement("div");
-    miniBlock.id = i;
+    miniBlock.id = "c" + i;
     miniBlock.classList.add("mini-block");
     document.querySelector("#computerBoard").append(miniBlock);
   }
@@ -54,7 +54,7 @@ const destroyer = new shipCategory("destroyer", 2);
 const newShips = [carrier, battleship, cruiser, submarine, destroyer];
 
 // 4. create a function that randomly allocates the game pieces in a board, have to incorporate the flip function here. Also have to make sure that the pieces are added in correctly.
-function allocateShipPieces(ship, validityFunction) {
+function allocateShipPieces(ship) {
   const allMiniBlocks = document.querySelectorAll("#computerBoard div");
   let randomBoolean = Math.random() < 0.5;
   let horizontal = randomBoolean;
@@ -92,20 +92,40 @@ function allocateShipPieces(ship, validityFunction) {
     }
   }
 
-  // console.log(shipsArr);
+  // let valid;
 
+  // if (horizontal === true) {
+  //   shipsArr.every((_shipblock, index) => {
+  //     valid =
+  //       shipsArr[0].id % width !== width - (shipsArr.length - (index + 1));
+  //   });
+  // } else {
+  //   shipsArr.every((_shipblock, index) => {
+  //     valid = shipsArr[0].id < 90 + (width * index + 1);
+  //   });
+  // }
+
+  // const notTaken = shipsArr.every((smth) => {
+  //   !smth.classList.contains("taken");
+  // });
+
+  // if (valid && notTaken) {
+  //   shipsArr.forEach((smth) => {
+  //     smth.setAttribute("id", ship.name);
+  //     smth.classList.add("taken");
+  //   });
+  // } else {
+  //   allocateShipPieces(ship);
+  // }
   // 7. Use the forEach method to add ID of the ship's name into the HTML. The CSS styling for the ID should also be created to cater to this.
   shipsArr.forEach((smth) => {
-    smth.setAttribute("id", ship.name);
+    // smth.setAttribute("id", ship.name);
+    smth.classList.add(ship.name);
     smth.classList.add("taken");
   });
 }
-
-//  allocateShipPieces(destroyer);
 
 // 9. Now, instead of calling just one ship, we shall do it for all the ships. To do so, we need an array again as we're using the forEach method.
 newShips.forEach((newShip) => {
   allocateShipPieces(newShip);
 });
-
-/* use JS classes to create ship piece? Since that is what we were taught how to use classes right, to create blueprints for modification of characters in a game etc. */
