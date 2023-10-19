@@ -1,43 +1,61 @@
-// 1. create the grid in the player and computer board
-const width = 10; // 2. we put this here so we can change this number whenever we want to alter the games board size
+const width = 10;
+const playerGrid = document.querySelector("#playerBoard");
+const computerGrid = document.querySelector("#computerBoard");
+const computerMiniBlocks = [];
+const playerMiniBlocks = [];
+// const startButton = document.querySelector("#start");
 
-function createMiniBlocksPlayer() {
+// Create grid for player board.
+function createMiniBlocksPlayer(grid) {
   for (let i = 0; i < width * width; i++) {
     const miniBlock = document.createElement("div");
     miniBlock.id = "p" + i;
     miniBlock.classList.add("mini-block");
-    document.querySelector("#playerBoard").append(miniBlock);
+    grid.append(miniBlock);
   }
 }
-createMiniBlocksPlayer();
+createMiniBlocksPlayer(playerGrid);
 
-function createMiniBlocksComputer() {
+// Create grid for computer board.
+function createMiniBlocksComputer(grid) {
   for (let i = 0; i < width * width; i++) {
     const miniBlock = document.createElement("div");
     miniBlock.id = "c" + i;
     miniBlock.classList.add("mini-block");
-    document.querySelector("#computerBoard").append(miniBlock);
+    grid.append(miniBlock);
   }
 }
-createMiniBlocksComputer();
+createMiniBlocksComputer(computerGrid);
 
-// 3. create a function that flips the game pieces
-const gamePiecesContainer = document.querySelector(".gamePieces");
-let angle = 0;
+// Use classes to create ships.
+// class shipCategory {
+//   constructor(name, directions) {
+//     this.name = name;
+//     this.directions = directions;
+//   }
+// }
 
-function flipPieces() {
-  const shipOptions = Array.from(gamePiecesContainer.children);
-  if (angle === 0) {
-    angle = 90;
-  } else {
-    angle = 0;
-  }
-  shipOptions.forEach((shipPieces) => {
-    shipPieces.style.transform = "rotate(90deg)";
-  });
-}
+// const carrier = new shipCategory("carrier", [
+//   [0, 1, 2, 3, 4],
+//   [0, width, width * 2, width * 3, width * 4],
+// ]);
+// const battleship = new shipCategory("battleship", [
+//   [0, 1, 2, 3],
+//   [0, width, width * 2, width * 3],
+// ]);
+// const cruiser = new shipCategory("cruiser", [
+//   [0, 1, 2],
+//   [0, width, width * 2],
+// ]);
+// const submarine = new shipCategory("submarine", [
+//   [0, 1, 2],
+//   [0, width, width * 2],
+// ]);
+// const destroyer = new shipCategory("destroyer", [
+//   [0, 1],
+//   [0, width],
+// ]);
 
-// 6. create classes to assist with step 5. Put the name and the length as parameters to use in step 5.
 class shipCategory {
   constructor(name, length) {
     this.name = name;
@@ -50,159 +68,250 @@ const cruiser = new shipCategory("cruiser", 3);
 const submarine = new shipCategory("submarine", 3);
 const destroyer = new shipCategory("destroyer", 2);
 
-// 10. Create an array here, to assist with step 9.
 const newShips = [carrier, battleship, cruiser, submarine, destroyer];
+console.log(newShips);
 
-// 4. create a function that randomly allocates the game pieces in a board, have to incorporate the flip function here. Also have to make sure that the pieces are added in correctly.
-function allocateShipPiecesComputer(ship) {
+// Automatically and randomly allocate ships to both boards.
+// function allocateShipPiecesComputer(ship) {
+//   const allMiniBlocks = document.querySelectorAll("#computerBoard div");
+//   let randomDirection = Math.floor(Math.random() * ship.directions.length);
+//   let currentDirection = ship.directions[randomDirection];
+//   if (randomDirection === 0) {
+//     direction = 1;
+//   } else {
+//     direction = 10;
+//   }
+
+//   let randomStartIndex = Math.floor(Math.random() * width * width);
+//   let validStartIndex = randomStartIndex;
+//   if (direction === 1) {
+//     if (randomStartIndex <= width * width - ship.length) {
+//       validStartIndex = randomStartIndex;
+//     } else {
+//       validStartIndex = width * width - ship.length;
+//     }
+//   } else {
+//     if (randomStartIndex <= width * width - width * ship.length + width - 1) {
+//       validStartIndex = randomStartIndex;
+//     } else {
+//       validStartIndex = randomStartIndex - width * ship.length + width;
+//     }
+//   }
+
+//   const isTaken = currentDirection.some((index) => {
+//     computerMiniBlocks[validStartIndex + index].classList.contains("taken");
+//   });
+//   const isOnRightMostColumn = currentDirection.some((index) => {
+//     (validStartIndex + index) % width === width - 1;
+//   });
+//   const isOnLeftMostColumn = currentDirection.some((index) => {
+//     (validStartIndex + index) % width === 0;
+//   });
+
+//   if (!isTaken && !isOnRightMostColumn && !isOnLeftMostColumn) {
+//     currentDirection.forEach((index) => {
+//       computerMiniBlocks[validStartIndex + index].classList.add(
+//         "taken",
+//         ship.name
+//       );
+//     });
+//   } else {
+//     allocateShipPiecesComputer(ship);
+//   }
+// }
+
+// newShips.forEach((newShip) => {
+//   allocateShipPiecesComputer(newShip);
+// });
+
+// // 5. use the for loop to iterate through each ship's length. To do so, we need to get the length info.
+// // for (let i = 0; i < ship.length; i++) {
+// //   if (horizontal === true) {
+// //     shipsArr.push(allMiniBlocks[validStart + i]);
+// //   } else {
+// //     shipsArr.push(allMiniBlocks[validStart + i * width]);
+// //   }
+// // }
+
+// // // 7. Use the forEach method to add ID of the ship's name into the HTML. The CSS styling for the ID should also be created to cater to this.
+// // shipsArr.forEach((smth) => {
+// //   // smth.setAttribute("id", ship.name);
+// //   smth.classList.add(ship.name);
+// //   smth.classList.add("taken");
+// // });
+
+// // // 9. Now, instead of calling just one ship, we shall do it for all the ships. To do so, we need an array again as we're using the forEach method.
+// // newShips.forEach((newShip) => {
+// //   allocateShipPiecesComputer(newShip);
+// // });
+
+// // randomise for player
+// function allocateShipPiecesPlayer(ship) {
+//   const allMiniBlocks = document.querySelectorAll("#playerBoard div");
+//   let randomBoolean = Math.random() < 0.5;
+//   let horizontal = randomBoolean;
+//   let randomStartIndex = Math.floor(Math.random() * width * width);
+//   console.log(randomStartIndex);
+
+//   // 10. Validate the start, so as to prevent the errors we see if this code is not in place.
+
+//   let validStartIndex = randomStartIndex;
+//   if (horizontal === true) {
+//     if (randomStartIndex <= width * width - ship.length) {
+//       validStartIndex = randomStartIndex;
+//     } else {
+//       validStartIndex = width * width - ship.length;
+//     }
+//   } else {
+//     if (randomStartIndex <= width * width - width * ship.length + width) {
+//       validStartIndex = randomStartIndex;
+//     } else {
+//       validStartIndex = randomStartIndex - width * ship.length + width;
+//     }
+//   }
+
+//   // 8. In order to use forEach method in step 7, we need an array. So create an empty array and push the items into here. Then from step 5, push the items into this empty array.
+//   let shipsArr = [];
+
+//   for (let i = 0; i < ship.length; i++) {
+//     if (horizontal === true) {
+//       shipsArr.push(allMiniBlocks[validStartIndex + i]);
+//     } else {
+//       shipsArr.push(allMiniBlocks[validStartIndex + i * width]);
+//     }
+//   }
+
+let noOverlap;
+for (let i = randomStartIndex; i < randomStartIndex + ship.length; i++) {
+  let boardIndex = "#c" + i;
+  if (document.querySelector(boardIndex).classList.contains("taken")) {
+    noOverlap = false;
+  } else {
+    noOverlap = true;
+  }
+}
+
+//   // for (let i = 0; i < ship.length; i++) {
+//   //   if (horizontal === true) {
+//   //     if (noOverlap === true) {
+//   //       shipsArr.push(allMiniBlocks[validStartIndex + i]);
+//   //     } else {
+//   //       allocateShipPiecesPlayer(ship);
+//   //     }
+//   //   } else {
+//   //     if (noOverlap === true) {
+//   //       shipsArr.push(allMiniBlocks[validStartIndex + i * width]);
+//   //     } else {
+//   //       allocateShipPiecesPlayer(ship);
+//   //     }
+//   //   }
+//   // }
+
+//   // 7. Use the forEach method to add ID of the ship's name into the HTML. The CSS styling for the ID should also be created to cater to this.
+//   shipsArr.forEach((smth) => {
+//     // smth.setAttribute("id", ship.name);
+//     smth.classList.add(ship.name);
+//     smth.classList.add("taken");
+//   });
+// }
+
+// // 9. Now, instead of calling just one ship, we shall do it for all the ships. To do so, we need an array again as we're using the forEach method.
+// newShips.forEach((newShip) => {
+//   allocateShipPiecesPlayer(newShip);
+// });
+
+// Automatically and randomly allocate ships to both boards.
+function allocateShipPieces(ship) {
   const allMiniBlocks = document.querySelectorAll("#computerBoard div");
   let randomBoolean = Math.random() < 0.5;
   let horizontal = randomBoolean;
   let randomStartIndex = Math.floor(Math.random() * width * width);
-  console.log(randomStartIndex);
 
-  // 10. Validate the start, so as to prevent the errors we see if this code is not in place.
-
-  let validStart = randomStartIndex;
+  let validStartIndex = randomStartIndex;
 
   if (horizontal === true) {
     if (randomStartIndex <= width * width - ship.length) {
-      validStart = randomStartIndex;
+      validStartIndex = randomStartIndex;
     } else {
-      validStart = width * width - ship.length;
+      validStartIndex = width * width - ship.length;
     }
   } else {
     if (randomStartIndex <= width * width - width * ship.length + width) {
-      // put in the necessary parenthesis and try it out, this works.
-      validStart = randomStartIndex;
+      validStartIndex = randomStartIndex;
     } else {
-      validStart = randomStartIndex - width * ship.length + width;
+      validStartIndex = randomStartIndex - width * ship.length + width;
     }
   }
 
-  // 8. In order to use forEach method in step 7, we need an array. So create an empty array and push the items into here. Then from step 5, push the items into this empty array.
   let shipsArr = [];
 
-  // 5. use the for loop to iterate through each ship's length. To do so, we need to get the length info.
   for (let i = 0; i < ship.length; i++) {
     if (horizontal === true) {
-      shipsArr.push(allMiniBlocks[validStart + i]);
+      shipsArr.push(allMiniBlocks[validStartIndex + i]);
     } else {
-      shipsArr.push(allMiniBlocks[validStart + i * width]);
+      shipsArr.push(allMiniBlocks[validStartIndex + i * width]);
     }
   }
 
-  // let valid;
-
+  // let isTaken;
   // if (horizontal === true) {
-  //   shipsArr.every((_shipblock, index) => {
-  //     valid =
-  //       shipsArr[0].id % width !== width - (shipsArr.length - (index + 1));
-  //   });
+  //   if (
+  //     shipsArr.some((index) => {
+  //       shipsArr[index].classList.contains("taken");
+  //     })
+  //   ) {
+  //     isTaken = true;
+  //   } else {
+  //     isTaken = false;
+  //   }
   // } else {
-  //   shipsArr.every((_shipblock, index) => {
-  //     valid = shipsArr[0].id < 90 + (width * index + 1);
-  //   });
+  //   if (
+  //     shipsArr.some((index) => {
+  //       shipsArr[index].classList.contains("taken");
+  //     })
+  //   ) {
+  //     isTaken = true;
+  //   } else {
+  //     isTaken = false;
+  //   }
   // }
 
-  // const notTaken = shipsArr.every((smth) => {
-  //   !smth.classList.contains("taken");
-  // });
-
-  // if (valid && notTaken) {
-  //   shipsArr.forEach((smth) => {
-  //     smth.setAttribute("id", ship.name);
-  //     smth.classList.add("taken");
-  //   });
-  // } else {
-  //   allocateShipPieces(ship);
-  // }
-  // 7. Use the forEach method to add ID of the ship's name into the HTML. The CSS styling for the ID should also be created to cater to this.
-  shipsArr.forEach((smth) => {
-    // smth.setAttribute("id", ship.name);
-    smth.classList.add(ship.name);
-    smth.classList.add("taken");
-  });
-}
-
-// 9. Now, instead of calling just one ship, we shall do it for all the ships. To do so, we need an array again as we're using the forEach method.
-newShips.forEach((newShip) => {
-  allocateShipPiecesComputer(newShip);
-});
-
-// randomise for player
-function allocateShipPiecesPlayer(ship) {
-  const allMiniBlocks = document.querySelectorAll("#playerBoard div");
-  let randomBoolean = Math.random() < 0.5;
-  let horizontal = randomBoolean;
-  let randomStartIndex = Math.floor(Math.random() * width * width);
-  console.log(randomStartIndex);
-
-  // 10. Validate the start, so as to prevent the errors we see if this code is not in place.
-
-  let validStart = randomStartIndex;
-
+  let valid;
   if (horizontal === true) {
-    if (randomStartIndex <= width * width - ship.length) {
-      validStart = randomStartIndex;
+    if (
+      shipsArr.every((_ship, index) => {
+        shipsArr[0].id % width !== width - (shipsArr.length - (index + 1));
+      })
+    ) {
+      valid = true;
     } else {
-      validStart = width * width - ship.length;
+      valid = false;
     }
   } else {
-    if (randomStartIndex <= width * width - width * ship.length + width) {
-      // put in the necessary parenthesis and try it out, this works.
-      validStart = randomStartIndex;
+    if (
+      shipsArr.every((_ship, index) => {
+        shipsArr[0].id < 90 + (width * index + 1);
+      })
+    ) {
+      valid = true;
     } else {
-      validStart = randomStartIndex - width * ship.length + width;
+      valid = false;
     }
   }
 
-  // 8. In order to use forEach method in step 7, we need an array. So create an empty array and push the items into here. Then from step 5, push the items into this empty array.
-  let shipsArr = [];
-
-  // 5. use the for loop to iterate through each ship's length. To do so, we need to get the length info.
-  for (let i = 0; i < ship.length; i++) {
-    if (horizontal === true) {
-      shipsArr.push(allMiniBlocks[validStart + i]);
-    } else {
-      shipsArr.push(allMiniBlocks[validStart + i * width]);
-    }
-  }
-
-  // let valid;
-
-  // if (horizontal === true) {
-  //   shipsArr.every((_shipblock, index) => {
-  //     valid =
-  //       shipsArr[0].id % width !== width - (shipsArr.length - (index + 1));
-  //   });
-  // } else {
-  //   shipsArr.every((_shipblock, index) => {
-  //     valid = shipsArr[0].id < 90 + (width * index + 1);
-  //   });
-  // }
-
-  // const notTaken = shipsArr.every((smth) => {
-  //   !smth.classList.contains("taken");
-  // });
-
-  // if (valid && notTaken) {
-  //   shipsArr.forEach((smth) => {
-  //     smth.setAttribute("id", ship.name);
-  //     smth.classList.add("taken");
-  //   });
-  // } else {
-  //   allocateShipPieces(ship);
-  // }
-  // 7. Use the forEach method to add ID of the ship's name into the HTML. The CSS styling for the ID should also be created to cater to this.
-  shipsArr.forEach((smth) => {
-    // smth.setAttribute("id", ship.name);
-    smth.classList.add(ship.name);
-    smth.classList.add("taken");
+  const notTaken = shipsArr.every((ship) => {
+    !ship.classList.contains("taken");
   });
+
+  if (valid && notTaken) {
+    shipsArr.forEach((ship) => {
+      ship.classList.add("taken", ship.name);
+    });
+  } else {
+    allocateShipPieces(ship);
+  }
 }
 
-// 9. Now, instead of calling just one ship, we shall do it for all the ships. To do so, we need an array again as we're using the forEach method.
 newShips.forEach((newShip) => {
-  allocateShipPiecesPlayer(newShip);
+  allocateShipPieces(newShip);
 });
