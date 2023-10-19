@@ -29,12 +29,22 @@ nav {
 .description {
   width: 100%;
   height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .description,
 h1 {
   display: flex;
   justify-content: center;
+  padding: 10px;
+  margin: 20px 0 0 0;
+}
+
+.description,
+p {
+  margin: 0 0 20px 0;
 }
 
 .messageConsole {
@@ -43,7 +53,16 @@ h1 {
   justify-content: center;
   border: 1px solid black;
   border-radius: 20px;
-  margin-bottom: 20px;
+}
+
+.messageConsole,
+p {
+  margin: 10px 10px 10px 10px;
+}
+
+.message {
+  color: #fc193b;
+  font-weight: 600;
 }
 
 h5 {
@@ -54,6 +73,7 @@ h5 {
   display: flex;
   flex-wrap: wrap;
   gap: 150px;
+  margin: 75px 0 75px 0;
 }
 
 .board {
@@ -153,11 +173,24 @@ footer {
   gap: 200px;
   margin: 50px;
 }
+#startButton {
+  padding: 10px 30px 10px 30px;
+  background-color: #eda539;
+  border-radius: 20px;
+}
+
+#computerBoard .carrier,
+#computerBoard .battleship,
+#computerBoard .cruiser,
+#computerBoard .submarine,
+#computerBoard .destroyer {
+  background-color: bisque;
+}
 
 .hit {
-  background-color: red;
+  background-color: red !important;
 }
 
 .miss {
-  background-color: black;
+  background-color: black !important;
 }

@@ -5,8 +5,7 @@ const computerGrid = document.querySelector("#computerBoard");
 let computerBlocksArr = [];
 let playerBlocksArr = [];
 const startButton = document.querySelector("#startButton");
-// let randomBoolean = Math.random() < 0.5;
-// let horizontal = randomBoolean;
+const displayedMessage = document.querySelector(".message");
 
 // CREATE GRID FOR PLAYER BOARD
 function createMiniBlocksPlayer(grid) {
@@ -73,6 +72,12 @@ function allocateShipPieces(ship) {
       noOverlap = true;
     }
   }
+  console.log(shipsArr);
+
+  let isOnRightMostColumn = shipsArr.some((index) => {
+    (validStartIndex + shipsArr.indexOf(index)) % width !== width - 1;
+  });
+
   //   let valid;
   //   if (
   //     shipsArr.every((_ship, index) => {
@@ -84,22 +89,15 @@ function allocateShipPieces(ship) {
   //     valid = false;
   //   }
 
-  // const notTaken = shipsArr.every((index) => {
-  //   !index.classList.contains("taken");
-  // });
-
-  if (noOverlap) {
+  if (noOverlap && !isOnRightMostColumn) {
     shipsArr.forEach((item) => {
       item.classList.add("taken", ship.name);
     });
   } else {
     allocateShipPieces(ship);
   }
-  //   shipsArr.forEach((smth) => {
-  //     smth.classList.add(ship.name);
-  //     smth.classList.add("taken");
-  //   });
 }
+
 newShips.forEach((newship) => {
   allocateShipPieces(newship);
 });
@@ -115,19 +113,24 @@ function startGame() {
   });
 }
 
+shipsSunk = [];
 function handleClick(e) {
   if (e.target.classList.contains("taken")) {
     e.target.classList.add("hit");
+    displayedMessage.innerText = "You're a natural BABY!!";
   } else {
     e.target.classList.add("miss");
+    displayedMessage.innerText = "FOCUS Recruit!!";
   }
 }
 
 startButton.addEventListener("click", startGame);
 
+// CREATE A GAMEOVER CONDITION
+
 // OTHER LOGICS:
 /* 
-- Hide the computer's ships
+- Create a function or condition for gameOver
 - Settle the issue of the ships splitting into the new row
 - Time or maximum number of clicks
 - A console on the HTML that reads messages. This will take awhile. 
