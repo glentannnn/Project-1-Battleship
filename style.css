@@ -31,16 +31,19 @@ nav {
   height: auto;
 }
 
-h3 {
+.description,
+h1 {
   display: flex;
   justify-content: center;
 }
 
-.boardName {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-self: center;
+.messageConsole {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin-bottom: 20px;
 }
 
 h5 {
@@ -84,8 +87,8 @@ h5 {
   width: 590px;
   height: 100px;
   border: 1px solid black;
-  border-radius: 10px;
-  margin-top: 30px;
+  border-radius: 20px;
+  margin: 30px 0 30px 0;
 }
 
 .carrier {
@@ -149,4 +152,12 @@ footer {
   justify-content: center;
   gap: 200px;
   margin: 50px;
+}
+
+.hit {
+  background-color: red;
+}
+
+.miss {
+  background-color: black;
 }

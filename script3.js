@@ -1,13 +1,14 @@
+// STORE ALL VARIABLES HERE
 const width = 10;
 const playerGrid = document.querySelector("#playerBoard");
 const computerGrid = document.querySelector("#computerBoard");
 let computerBlocksArr = [];
 let playerBlocksArr = [];
-// const startButton = document.querySelector("#start");
+const startButton = document.querySelector("#startButton");
 // let randomBoolean = Math.random() < 0.5;
 // let horizontal = randomBoolean;
 
-// Create grid for player board.
+// CREATE GRID FOR PLAYER BOARD
 function createMiniBlocksPlayer(grid) {
   for (let i = 0; i < width * width; i++) {
     const miniBlock = document.createElement("div");
@@ -18,7 +19,7 @@ function createMiniBlocksPlayer(grid) {
 }
 createMiniBlocksPlayer(playerGrid);
 
-// Create grid for computer board.
+// CREATE GRID FOR COMPUTER BOARD
 function createMiniBlocksComputer(grid) {
   for (let i = 0; i < width * width; i++) {
     const miniBlock = document.createElement("div");
@@ -29,7 +30,7 @@ function createMiniBlocksComputer(grid) {
 }
 createMiniBlocksComputer(computerGrid);
 
-// Use classes to create ships.
+// USE CLASSES TO CREATE SHIPS
 class shipCategory {
   constructor(name, length) {
     this.name = name;
@@ -43,9 +44,9 @@ const submarine = new shipCategory("submarine", 3);
 const destroyer = new shipCategory("destroyer", 2);
 
 const newShips = [carrier, battleship, cruiser, submarine, destroyer];
-console.log(newShips);
+// console.log(newShips);
 
-// Automatically and randomly allocate ships to computer boards.
+// AUTOMATICALLY AND RANDOMLY ALLOCATE SHIPS TO COMPUTER BOARD
 function allocateShipPieces(ship) {
   const allMiniBlocks = document.querySelectorAll("#computerBoard div");
   let randomStartIndex = Math.floor(Math.random() * width * width);
@@ -83,10 +84,10 @@ function allocateShipPieces(ship) {
   //     valid = false;
   //   }
 
-  //   const notTaken = shipsArr.every((index) => {
-  //     !index.classList.contains("taken");
-  //   });
-  //   console.log(noOverlap, shipsArr);
+  // const notTaken = shipsArr.every((index) => {
+  //   !index.classList.contains("taken");
+  // });
+
   if (noOverlap) {
     shipsArr.forEach((item) => {
       item.classList.add("taken", ship.name);
@@ -103,14 +104,32 @@ newShips.forEach((newship) => {
   allocateShipPieces(newship);
 });
 
-// Create event listener to listen to clicks on computer grid
-const allComputerMiniBlocks = document.querySelectorAll(".mini-block");
-allComputerMiniBlocks.addEventListener("click", (item) => {
-  item.classList.add("fired");
-});
-
-function firing(e) {
-  allComputerMiniBlocks.addEventListener("click", (item) => {
-    item.classList.add("fired");
+// FUNCTION START GAME
+function startGame() {
+  const allComputerMiniBlocks = document.querySelectorAll(
+    "#computerBoard .mini-block"
+  );
+  allComputerMiniBlocks.forEach((item) => {
+    //Q: How does this work? I thought forEach is for array?
+    item.addEventListener("click", handleClick);
   });
 }
+
+function handleClick(e) {
+  if (e.target.classList.contains("taken")) {
+    e.target.classList.add("hit");
+  } else {
+    e.target.classList.add("miss");
+  }
+}
+
+startButton.addEventListener("click", startGame);
+
+// OTHER LOGICS:
+/* 
+- Hide the computer's ships
+- Settle the issue of the ships splitting into the new row
+- Time or maximum number of clicks
+- A console on the HTML that reads messages. This will take awhile. 
+- 
+*/
