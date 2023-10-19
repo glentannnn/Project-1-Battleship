@@ -72,24 +72,24 @@ function allocateShipPieces(ship) {
       noOverlap = true;
     }
   }
-  console.log(shipsArr);
 
+  /*
   let isOnRightMostColumn = shipsArr.some((index) => {
     (validStartIndex + shipsArr.indexOf(index)) % width !== width - 1;
   });
 
-  //   let valid;
-  //   if (
-  //     shipsArr.every((_ship, index) => {
-  //       shipsArr[0].id % width !== width - (shipsArr.length - (index + 1));
-  //     })
-  //   ) {
-  //     valid = true;
-  //   } else {
-  //     valid = false;
-  //   }
-
-  if (noOverlap && !isOnRightMostColumn) {
+    let valid;
+    if (
+      shipsArr.every((_ship, index) => {
+        shipsArr[0].id % width !== width - (shipsArr.length - (index + 1));
+      })
+    ) {
+      valid = true;
+    } else {
+      valid = false;
+    }
+  */
+  if (noOverlap /*&& !isOnRightMostColumn*/) {
     shipsArr.forEach((item) => {
       item.classList.add("taken", ship.name);
     });
@@ -113,26 +113,41 @@ function startGame() {
   });
 }
 
-shipsSunk = [];
+let shipsSunk = [];
+
 function handleClick(e) {
   if (e.target.classList.contains("taken")) {
     e.target.classList.add("hit");
-    displayedMessage.innerText = "You're a natural BABY!!";
+    displayedMessage.innerText = `"You're a natural BABY!!"`;
+    let filteredClassArr = Array.from(e.target.classList);
+    filteredClassArr = filteredClassArr.filter(
+      (className) => className !== "mini-block"
+    );
+    filteredClassArr = filteredClassArr.filter(
+      (className) => className !== "taken"
+    );
+    filteredClassArr = filteredClassArr.filter(
+      (className) => className !== "hit"
+    );
+    shipsSunk.push(...filteredClassArr);
+    if (shipsSunk.length >= 17) {
+      displayedMessage.innerText = `"Training Over! Please rest well for the next session!"`;
+      console.log(shipsSunk);
+    }
   } else {
     e.target.classList.add("miss");
-    displayedMessage.innerText = "FOCUS Recruit!!";
+    displayedMessage.innerText = `"FOCUS Recruit!!"`;
   }
 }
 
 startButton.addEventListener("click", startGame);
 
-// CREATE A GAMEOVER CONDITION
+/*
 
-// OTHER LOGICS:
-/* 
-- Create a function or condition for gameOver
+OTHER LOGICS TO ADD:
+- Add a font update to the CSS
 - Settle the issue of the ships splitting into the new row
 - Time or maximum number of clicks
 - A console on the HTML that reads messages. This will take awhile. 
-- 
+
 */
