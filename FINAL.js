@@ -142,11 +142,3 @@ function handleClick(e) {
 
 startButton.addEventListener("click", startGame);
 
-/*
-
-UPGRADE PACKAGE:
-- The condition to display the the "gameOver message". Need to make it better by validifying consolidated array's length. 
-- Settle the issue of the ships splitting into the new row
-- Time or maximum number of clicks
-
-*/
